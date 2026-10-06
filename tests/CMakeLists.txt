@@ -14,6 +14,7 @@ add_executable(
         functions_tests.cpp
         io_tests.cpp
         main.cpp
+        serialization_tests.cpp
 )
 
 if(MSVC)
