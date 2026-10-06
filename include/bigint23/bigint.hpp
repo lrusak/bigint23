@@ -38,6 +38,17 @@ namespace bigint {
         std::array<std::uint8_t, std::to_underlying(bits) / CHAR_BIT> data_{};
 
     public:
+        template<std::endian endian>
+        [[nodiscard]] auto to_bytes() const {
+            auto s = std::span<const std::uint8_t, std::to_underlying(bits) / CHAR_BIT>{data_.begin(), data_.size()};
+
+            if constexpr (endian != std::endian::native) {
+                return s | std::views::reverse;
+            } else {
+                return s;
+            }
+        }
+
         [[nodiscard]] constexpr bigint() = default;
 
         template<std::integral T>
